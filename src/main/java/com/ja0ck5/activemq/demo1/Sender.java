@@ -1,17 +1,17 @@
-package com.ja0ck5.activemq;
+package com.ja0ck5.activemq.demo1;
 
 import javax.jms.Connection;
+import javax.jms.DeliveryMode;
 import javax.jms.Destination;
-import javax.jms.MessageConsumer;
+import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-public class Reciever {
+public class Sender {
 
 	public static void main(String[] args) throws Exception {
-
 		// 1
 		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(
 				ActiveMQConnectionFactory.DEFAULT_USER, ActiveMQConnectionFactory.DEFAULT_PASSWORD,
@@ -27,17 +27,21 @@ public class Reciever {
 		Destination destination = session.createQueue("queue1");
 
 		// 5
-		MessageConsumer consumer = session.createConsumer(destination);
+		MessageProducer producer = session.createProducer(destination);
 
 		// 6
-		while(true){
-			TextMessage receive = (TextMessage) consumer.receive();
-			if(null == receive) break;
-			System.out.println("recieve : " + receive);
+		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+		for (int i = 0; i < 5; i++) {
+			// 7
+			TextMessage textMessage = session.createTextMessage("this is a textMessage.");
+			textMessage.setText("\r\nI am a message-" + i + "!!!");
+			// 8
+			producer.send(textMessage);
 		}
-				
+		
 		connection.close();
 
-	
 	}
+
 }
