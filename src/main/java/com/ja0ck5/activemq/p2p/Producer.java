@@ -39,37 +39,48 @@ public class Producer {
 		try {
 			Destination destination = this.getSession().createQueue(queueName);
 			MapMessage msg1 = this.getSession().createMapMessage();
+			msg1.setStringProperty("name", "HAHA");
 			msg1.setString("name", "HAHA");
-			msg1.setString("age", "0");
-			msg1.setString("color", "blue");
-			msg1.setString("sal", "20000");
+			msg1.setIntProperty("age", 0);
+			msg1.setInt("age", 0);
+			msg1.setStringProperty("color", "blue");
+			msg1.setIntProperty("sal", 20000);
 			int id = 1;
 
-			msg1.setInt("id", id);
+			msg1.setIntProperty("id", id);
 			msg1.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
+			
 			MapMessage msg2 = this.getSession().createMapMessage();
+			msg2.setStringProperty("name", "HEHE");
 			msg2.setString("name", "HEHE");
-			msg2.setString("age", "1");
-			msg2.setString("color", "blue");
-			msg2.setString("sal", "200001");
+			msg2.setIntProperty("age", 1);
+			msg2.setInt("age", 1);
+			msg2.setStringProperty("color", "blue");
+			msg2.setInt("sal", 200001);
+			msg2.setIntProperty("sal", 200001);
 			id = 2;
-			msg2.setInt("id", id);
+			msg2.setIntProperty("id", id);
 			msg2.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
+
 			MapMessage msg3 = this.getSession().createMapMessage();
+			msg3.setStringProperty("name", "WYD");
 			msg3.setString("name", "WYD");
-			msg3.setString("age", "2");
-			msg3.setString("color", "blue");
-			msg3.setString("sal", "20000");
+			msg3.setIntProperty("age", 2);
+			msg3.setInt("age", 2);
+			msg3.setStringProperty("color", "blue");
+			msg3.setIntProperty("sal", 20000);
 			id = 3;
-			msg3.setInt("id", id);
+			msg3.setIntProperty("id", id);
 			msg3.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
+			
 			MapMessage msg4 = this.getSession().createMapMessage();
+			msg4.setStringProperty("name", "WTF");
 			msg4.setString("name", "WTF");
-			msg4.setString("age", "3");
-			msg4.setString("color", "red");
-			msg4.setString("sal", "200004");
+			msg4.setIntProperty("age", 3);
+			msg4.setStringProperty("color", "red");
+			msg4.setIntProperty("sal", 20004);
 			id = 4;
-			msg4.setInt("id", id);
+			msg4.setIntProperty("id", id);
 			msg4.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
 
 			this.messageProducer.send(destination, msg1, DeliveryMode.NON_PERSISTENT, 1, 1000 * 60 * 10L);
