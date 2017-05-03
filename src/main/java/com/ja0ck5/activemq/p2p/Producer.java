@@ -34,10 +34,10 @@ public class Producer {
 	public Session getSession() {
 		return this.session;
 	}
-
+	public static final String queueName = "first";
 	public void send1() {
 		try {
-			Destination destination = this.getSession().createQueue("first");
+			Destination destination = this.getSession().createQueue(queueName);
 			MapMessage msg1 = this.getSession().createMapMessage();
 			msg1.setString("name", "HAHA");
 			msg1.setString("age", "0");
@@ -48,26 +48,26 @@ public class Producer {
 			msg1.setInt("id", id);
 			msg1.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
 			MapMessage msg2 = this.getSession().createMapMessage();
-			msg2.setString("name", "HAHA");
-			msg2.setString("age", "0");
+			msg2.setString("name", "HEHE");
+			msg2.setString("age", "1");
 			msg2.setString("color", "blue");
-			msg2.setString("sal", "20000");
+			msg2.setString("sal", "200001");
 			id = 2;
 			msg2.setInt("id", id);
 			msg2.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
 			MapMessage msg3 = this.getSession().createMapMessage();
-			msg3.setString("name", "HAHA");
-			msg3.setString("age", "0");
+			msg3.setString("name", "WYD");
+			msg3.setString("age", "2");
 			msg3.setString("color", "blue");
 			msg3.setString("sal", "20000");
 			id = 3;
 			msg3.setInt("id", id);
 			msg3.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
 			MapMessage msg4 = this.getSession().createMapMessage();
-			msg4.setString("name", "HAHA");
-			msg4.setString("age", "0");
-			msg4.setString("color", "blue");
-			msg4.setString("sal", "20000");
+			msg4.setString("name", "WTF");
+			msg4.setString("age", "3");
+			msg4.setString("color", "red");
+			msg4.setString("sal", "200004");
 			id = 4;
 			msg4.setInt("id", id);
 			msg4.setStringProperty("receiver", id % 2 == 0 ? "A" : "B");
@@ -78,6 +78,12 @@ public class Producer {
 			this.messageProducer.send(destination, msg4, DeliveryMode.NON_PERSISTENT, 8, 1000 * 60 * 10L);
 		} catch (JMSException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				this.connection.close();
+			} catch (JMSException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
